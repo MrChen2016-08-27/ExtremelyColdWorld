@@ -15,6 +15,16 @@ var App = (function (_super) {
         ApplicationFacade.getInstance().startup(_this);
         return _this;
     }
+    App.prototype.createGameScene = function () {
+        var button = new eui.Button();
+        button.label = "Click!";
+        button.horizontalCenter = 0;
+        button.verticalCenter = 0;
+        this.addChild(button);
+        var event = new egret.Event(App.CREATE_COMPLETE);
+        this.dispatchEvent(event);
+    };
+    App.CREATE_COMPLETE = 'create_complete';
     return App;
 }(egret.DisplayObjectContainer));
 __reflect(App.prototype, "App");

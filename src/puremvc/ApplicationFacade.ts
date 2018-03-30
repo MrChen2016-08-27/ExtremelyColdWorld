@@ -1,6 +1,5 @@
 class ApplicationFacade extends puremvc.Facade implements puremvc.IFacade{
     public static readonly NAME: string = 'ApplicationFacade';
-    public static readonly STARTUP: string = 'startup';
     private static  instance;
     private constructor() {
         super(ApplicationFacade.NAME);
@@ -18,10 +17,10 @@ class ApplicationFacade extends puremvc.Facade implements puremvc.IFacade{
      */
     public initializeController() :void{
         super.initializeController();
-        this.registerCommand(ApplicationFacade.STARTUP, StartCommand);
+        this.registerCommand(ConstNotices.STARTUP, StartCommand);
     }
 
     public startup(app: App): void{
-        this.sendNotification(ApplicationFacade.STARTUP, app);
+        this.sendNotification(ConstNotices.STARTUP, app);
     }
 }

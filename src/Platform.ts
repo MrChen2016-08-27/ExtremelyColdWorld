@@ -8,7 +8,9 @@ declare interface Platform {
 
     getUserInfo(): Promise<any>;
 
-    login(): Promise<any>
+    login(): Promise<any>;
+
+    testHttp(data? : Object): Promise<any>;
 
 }
 
@@ -18,6 +20,9 @@ class DebugPlatform implements Platform {
     }
     async login() {
 
+    }
+    async testHttp(data) {
+        return Http.get('http://httpbin.org/get', data);
     }
 }
 

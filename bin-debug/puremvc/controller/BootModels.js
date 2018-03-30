@@ -17,6 +17,7 @@ var BootModels = (function (_super) {
      * @override
      */
     BootModels.prototype.execute = function () {
+        this.facade().registerProxy(new UserProxy());
     };
     return BootModels;
 }(puremvc.SimpleCommand));

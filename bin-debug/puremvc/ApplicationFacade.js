@@ -24,13 +24,12 @@ var ApplicationFacade = (function (_super) {
      */
     ApplicationFacade.prototype.initializeController = function () {
         _super.prototype.initializeController.call(this);
-        this.registerCommand(ApplicationFacade.STARTUP, StartCommand);
+        this.registerCommand(ConstNotices.STARTUP, StartCommand);
     };
     ApplicationFacade.prototype.startup = function (app) {
-        this.sendNotification(ApplicationFacade.STARTUP, app);
+        this.sendNotification(ConstNotices.STARTUP, app);
     };
     ApplicationFacade.NAME = 'ApplicationFacade';
-    ApplicationFacade.STARTUP = 'startup';
     return ApplicationFacade;
 }(puremvc.Facade));
 __reflect(ApplicationFacade.prototype, "ApplicationFacade", ["puremvc.IFacade", "puremvc.INotifier"]);

@@ -20,7 +20,6 @@ var BootViews = (function (_super) {
         // 注册主舞台
         var app = notice.getBody();
         this.facade().registerMediator(new ApplicationMediator(app));
-        console.log('注册主舞台成功');
     };
     return BootViews;
 }(puremvc.SimpleCommand));

@@ -36,34 +36,70 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var DebugPlatform = (function () {
-    function DebugPlatform() {
+var Http = (function () {
+    function Http() {
     }
-    DebugPlatform.prototype.getUserInfo = function () {
+    Http.post = function (url, data) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, { nickName: "username" }];
+                return [2 /*return*/, this.send(url, egret.HttpMethod.POST, data)];
             });
         });
     };
-    DebugPlatform.prototype.login = function () {
+    Http.get = function (url, query) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/];
+                return [2 /*return*/, this.send(url, egret.HttpMethod.GET, query)];
             });
         });
     };
-    DebugPlatform.prototype.testHttp = function (data) {
+    Http.put = function (url) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, Http.get('http://httpbin.org/get', data)];
+                return [2 /*return*/, this.send(url, 'put')];
             });
         });
     };
-    return DebugPlatform;
+    Http.delete = function (url) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, this.send(url, 'delete')];
+            });
+        });
+    };
+    Http.send = function (url, type, dataObj) {
+        var _this = this;
+        var urlstr = url;
+        var handleEvent = function () {
+            return new Promise(function (resolve, reject) {
+                request.addEventListener(egret.Event.COMPLETE, function (event) {
+                    var res = event.currentTarget;
+                    resolve(res.response);
+                }, _this);
+                request.addEventListener(egret.IOErrorEvent.IO_ERROR, function (event) {
+                    reject(event);
+                }, _this);
+            });
+        };
+        var request = new egret.HttpRequest();
+        handleEvent();
+        request.responseType = egret.HttpResponseType.TEXT;
+        if (type === egret.HttpMethod.GET) {
+            urlstr += '?';
+            for (var key in dataObj) {
+                urlstr += key + "=" + dataObj[key] + "&";
+            }
+        }
+        request.open(urlstr, type);
+        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        if (type === egret.HttpMethod.POST) {
+            request.send(dataObj);
+        }
+        else {
+            request.send();
+        }
+    };
+    return Http;
 }());
-__reflect(DebugPlatform.prototype, "DebugPlatform", ["Platform"]);
-if (!window.platform) {
-    window.platform = new DebugPlatform();
-}
-//# sourceMappingURL=Platform.js.map
+__reflect(Http.prototype, "Http");
+//# sourceMappingURL=Http.js.map
