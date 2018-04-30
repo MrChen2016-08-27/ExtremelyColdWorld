@@ -8,19 +8,20 @@ var __extends = this && this.__extends || function __extends(t, e) {
 for (var i in e) e.hasOwnProperty(i) && (t[i] = e[i]);
 r.prototype = e.prototype, t.prototype = new r();
 };
-var BootControllers = (function (_super) {
-    __extends(BootControllers, _super);
-    function BootControllers() {
+var LoginCommand = (function (_super) {
+    __extends(LoginCommand, _super);
+    function LoginCommand() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * @override
      */
-    BootControllers.prototype.execute = function (notice) {
-        this.facade().registerCommand(ConstNotices.GET_GANE_CONFIG, AppCommand);
-        this.facade().registerCommand(ConstNotices.LOGIN, LoginCommand);
+    LoginCommand.prototype.execute = function (note) {
+        var user = note.getBody();
+        var userProxy = this.facade().retrieveProxy(UserProxy.NAME);
+        userProxy.login(user.userName, user.password);
     };
-    return BootControllers;
+    return LoginCommand;
 }(puremvc.SimpleCommand));
-__reflect(BootControllers.prototype, "BootControllers");
-//# sourceMappingURL=BootControllers.js.map
+__reflect(LoginCommand.prototype, "LoginCommand");
+//# sourceMappingURL=LoginCommand.js.map

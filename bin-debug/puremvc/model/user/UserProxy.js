@@ -20,6 +20,14 @@ var UserProxy = (function (_super) {
         };
         this.facade().sendNotification(ConstNotices.GAME_CONFIG_COMPLETE, localInfo);
     };
+    UserProxy.prototype.login = function (userName, password) {
+        var user = {
+            userName: 'admin',
+            password: 'admin'
+        };
+        var result = userName === user.userName && password === user.password;
+        this.facade().sendNotification(ConstNotices.LOGIN_RESULT, result);
+    };
     UserProxy.NAME = 'UserProxy';
     return UserProxy;
 }(puremvc.Proxy));

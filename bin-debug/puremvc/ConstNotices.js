@@ -7,6 +7,8 @@ var ConstNotices = (function () {
     ConstNotices.STARTUP = 'startup';
     ConstNotices.GET_GANE_CONFIG = 'get_game_config';
     ConstNotices.GAME_CONFIG_COMPLETE = 'game_config_complete';
+    ConstNotices.LOGIN = 'login';
+    ConstNotices.LOGIN_RESULT = 'login_result';
     return ConstNotices;
 }());
 __reflect(ConstNotices.prototype, "ConstNotices");

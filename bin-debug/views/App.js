@@ -13,16 +13,24 @@ var App = (function (_super) {
     function App() {
         var _this = _super.call(this) || this;
         ApplicationFacade.getInstance().startup(_this);
+        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
         return _this;
     }
+    App.prototype.onAddToStage = function () {
+        this.createGameScene();
+    };
     App.prototype.createGameScene = function () {
         var button = new eui.Button();
-        button.label = "Click!";
+        button.label = "start!";
         button.horizontalCenter = 0;
         button.verticalCenter = 0;
         this.addChild(button);
         var event = new egret.Event(App.CREATE_COMPLETE);
         this.dispatchEvent(event);
+    };
+    App.prototype.end = function () {
+        this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        this.removeChildren();
     };
     App.CREATE_COMPLETE = 'create_complete';
     return App;

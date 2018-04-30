@@ -4,8 +4,8 @@ class StartCommand extends puremvc.MacroCommand implements puremvc.ICommand{
      * @override
      */
     public initializeMacroCommand(): void{
+        this.addSubCommand(BootModels);
         this.addSubCommand(BootControllers);
         this.addSubCommand(BootViews);
-        this.addSubCommand(BootModels);
     }
 }

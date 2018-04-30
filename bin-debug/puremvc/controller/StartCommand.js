@@ -17,9 +17,9 @@ var StartCommand = (function (_super) {
      * @override
      */
     StartCommand.prototype.initializeMacroCommand = function () {
+        this.addSubCommand(BootModels);
         this.addSubCommand(BootControllers);
         this.addSubCommand(BootViews);
-        this.addSubCommand(BootModels);
     };
     StartCommand.MAME = 'StartCommand';
     return StartCommand;
