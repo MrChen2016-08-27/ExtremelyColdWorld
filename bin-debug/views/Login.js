@@ -16,7 +16,6 @@ var Login = (function (_super) {
         return _this;
     }
     Login.prototype.createView = function () {
-        var _this = this;
         this.userNameInput = new eui.TextInput();
         this.userNameInput.prompt = '用户名';
         this.userNameInput.verticalCenter = -50;
@@ -29,21 +28,26 @@ var Login = (function (_super) {
         this.submitBtn.label = '登录';
         this.submitBtn.verticalCenter = 50;
         this.submitBtn.horizontalCenter = 0;
-        this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
-            var form = {
-                userName: _this.userNameInput.text,
-                password: _this.pwdInput.text
-            };
-            // const event = new egret.Event(Login.LOGIN_USER);
-            _this.dispatchEventWith(Login.LOGIN_USER, false, form);
-            console.log('TAP');
-        }, this);
+        this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.submitLogin, this);
         this.addChild(this.userNameInput);
         this.addChild(this.pwdInput);
         this.addChild(this.submitBtn);
     };
+    Login.prototype.submitLogin = function () {
+        var form = {
+            userName: this.userNameInput.text,
+            password: this.pwdInput.text
+        };
+        this.dispatchEventWith(Login.LOGIN_USER, false, form);
+    };
+    Login.prototype.end = function () {
+        this.userNameInput = null;
+        this.pwdInput = null;
+        this.submitBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.submitLogin, this);
+        this.submitBtn = null;
+    };
     Login.LOGIN_USER = 'login_user';
     return Login;
 }(eui.UILayer));
-__reflect(Login.prototype, "Login");
+__reflect(Login.prototype, "Login", ["View"]);
 //# sourceMappingURL=Login.js.map

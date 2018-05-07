@@ -12,7 +12,7 @@ var LoginMediator = (function (_super) {
     __extends(LoginMediator, _super);
     function LoginMediator(loginView) {
         var _this = _super.call(this) || this;
-        console.log('loginMediator');
+        _this.viewManager = ViewsManager.getInstance();
         _this.loginView = loginView;
         return _this;
     }
@@ -21,9 +21,7 @@ var LoginMediator = (function (_super) {
      */
     LoginMediator.prototype.onRegister = function () {
         var _this = this;
-        console.log('onRegister', this.loginView);
         this.loginView.addEventListener(Login.LOGIN_USER, function (event) {
-            console.log(Login.LOGIN_USER, event.data);
             _this.sendNotification(ConstNotices.LOGIN, event.data);
         }, this);
     };
@@ -31,9 +29,7 @@ var LoginMediator = (function (_super) {
      * @override
      */
     LoginMediator.prototype.listNotificationInterests = function () {
-        return [
-            ConstNotices.LOGIN_RESULT
-        ];
+        return [];
     };
     /**
      * @override
@@ -41,15 +37,11 @@ var LoginMediator = (function (_super) {
     LoginMediator.prototype.handleNotification = function (note) {
         var result = note.getBody();
         switch (note.getName()) {
-            case ConstNotices.LOGIN_RESULT:
-                this.handleLoginResult(result);
-                break;
             default:
                 break;
         }
     };
     LoginMediator.prototype.handleLoginResult = function (result) {
-        console.log(result, '...');
     };
     LoginMediator.NAME = 'loginMediator';
     return LoginMediator;

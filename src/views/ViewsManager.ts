@@ -1,9 +1,14 @@
+/**
+ * ViewsManager 作为一个代理视图容器
+ * 所有视图的切换都会在这个容器上进行
+ */
 class ViewsManager extends egret.DisplayObjectContainer{
     private static instance:ViewsManager;
+    private oldView:View;
+    private newView:View;
     constructor() {
         super();
     }
-
     public static getInstance():ViewsManager {
         if (ViewsManager.instance == null) {
             ViewsManager.instance = new ViewsManager();
@@ -11,4 +16,15 @@ class ViewsManager extends egret.DisplayObjectContainer{
         return ViewsManager.instance;
     }
 
+    // 切换到一个新容器
+    public push(view):void {
+        this.oldView = this.newView;
+        this.newView = view;
+        console.log(this.oldView, 'oldView');
+        if (this.oldView) {
+            this.oldView.end();
+        }
+        this.removeChildren();
+        this.addChild(view);
+    }
 }

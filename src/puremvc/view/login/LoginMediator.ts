@@ -1,9 +1,9 @@
 class LoginMediator extends puremvc.Mediator implements puremvc.IMediator{
     public static readonly NAME:string = 'loginMediator';
     private loginView:Login;
+    private viewManager = ViewsManager.getInstance();
     constructor(loginView:Login) {
         super();
-        console.log('loginMediator');
         this.loginView = loginView;
     }
 
@@ -20,7 +20,6 @@ class LoginMediator extends puremvc.Mediator implements puremvc.IMediator{
      */
     public listNotificationInterests(): Array<any>{
         return [
-            ConstNotices.LOGIN_RESULT
         ];
     }
     /**
@@ -29,15 +28,11 @@ class LoginMediator extends puremvc.Mediator implements puremvc.IMediator{
     public handleNotification(note:puremvc.INotification):void {
         const result = note.getBody();
         switch (note.getName()) {
-            case ConstNotices.LOGIN_RESULT:
-                this.handleLoginResult(result);
-                break;
             default:
                 break;
         }
     }
 
     private handleLoginResult(result):void {
-        console.log(result, '...');
     }
 }

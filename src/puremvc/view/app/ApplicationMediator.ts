@@ -2,6 +2,7 @@ class ApplicationMediator extends puremvc.Mediator implements puremvc.IMediator{
     public static readonly NAME: string  = 'ApplicationMediator';
     private rootView: App;
     private loginView: Login;
+    private level1 = new Level1();
     constructor(app: App) {
         super(ApplicationMediator.NAME, app);
         // this.facade().sendNotification(ConstNotices.GET_GANE_CONFIG);
@@ -15,8 +16,10 @@ class ApplicationMediator extends puremvc.Mediator implements puremvc.IMediator{
      */
     public onRegister():void {
         this.rootView.addEventListener(App.CREATE_COMPLETE, () => {
+            console.log('send..');
             this.sendNotification(ConstNotices.GET_GANE_CONFIG);
         }, this);
+        this.initViewsMediator();
     }
     /**
      * @override
@@ -33,19 +36,19 @@ class ApplicationMediator extends puremvc.Mediator implements puremvc.IMediator{
     public handleNotification(note: puremvc.INotification): void {
         switch (note.getName()) {
             case ConstNotices.GAME_CONFIG_COMPLETE:
-                console.log(note.getBody(), 'user');
-                this.goLogin();
+                ViewsManager.getInstance().push(this.loginView);
                 break;
             default:
                 break;
         }
     }
+    public initViewsMediator() {
+        const login = new Login();
+        this.facade().registerMediator(new LoginMediator(login));
+        this.loginView = login;
 
-    public goLogin():void {
-        // this.rootView.end();
-        this.rootView.removeChildren();
-        this.loginView = new Login();
-        this.facade().registerMediator(new LoginMediator(this.loginView));
-        this.rootView.addChild(this.loginView);
+        const leve1 = new Level1();
+        this.facade().registerMediator(new LevelMediator(leve1));
+
     }
 }

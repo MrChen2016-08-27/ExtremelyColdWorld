@@ -1,4 +1,4 @@
-class Login extends eui.UILayer{
+class Login extends eui.UILayer implements View{
     private userNameInput:eui.TextInput;
     private pwdInput:eui.TextInput;
     private submitBtn:eui.Button;
@@ -23,16 +23,23 @@ class Login extends eui.UILayer{
         this.submitBtn.label = '登录';
         this.submitBtn.verticalCenter = 50;
         this.submitBtn.horizontalCenter = 0;
-        this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
-            const form = {
-                userName: this.userNameInput.text,
-                password: this.pwdInput.text
-            };
-            this.dispatchEventWith(Login.LOGIN_USER, false, form);
-        }, this);
+        this.submitBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.submitLogin, this);
 
         this.addChild(this.userNameInput);
         this.addChild(this.pwdInput);
         this.addChild(this.submitBtn);
+    }
+    public submitLogin() {
+        const form = {
+            userName: this.userNameInput.text,
+            password: this.pwdInput.text
+        };
+        this.dispatchEventWith(Login.LOGIN_USER, false, form);
+    }
+    public end():void {
+        this.userNameInput = null;
+        this.pwdInput = null;
+        this.submitBtn.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.submitLogin, this);
+        this.submitBtn = null;
     }
 }

@@ -12,6 +12,7 @@ var ApplicationMediator = (function (_super) {
     __extends(ApplicationMediator, _super);
     function ApplicationMediator(app) {
         var _this = _super.call(this, ApplicationMediator.NAME, app) || this;
+        _this.level1 = new Level1();
         // this.facade().sendNotification(ConstNotices.GET_GANE_CONFIG);
         _this.rootView = app;
         return _this;
@@ -25,8 +26,10 @@ var ApplicationMediator = (function (_super) {
     ApplicationMediator.prototype.onRegister = function () {
         var _this = this;
         this.rootView.addEventListener(App.CREATE_COMPLETE, function () {
+            console.log('send..');
             _this.sendNotification(ConstNotices.GET_GANE_CONFIG);
         }, this);
+        this.initViewsMediator();
     };
     /**
      * @override
@@ -42,19 +45,18 @@ var ApplicationMediator = (function (_super) {
     ApplicationMediator.prototype.handleNotification = function (note) {
         switch (note.getName()) {
             case ConstNotices.GAME_CONFIG_COMPLETE:
-                console.log(note.getBody(), 'user');
-                this.goLogin();
+                ViewsManager.getInstance().push(this.loginView);
                 break;
             default:
                 break;
         }
     };
-    ApplicationMediator.prototype.goLogin = function () {
-        // this.rootView.end();
-        this.rootView.removeChildren();
-        this.loginView = new Login();
-        this.facade().registerMediator(new LoginMediator(this.loginView));
-        this.rootView.addChild(this.loginView);
+    ApplicationMediator.prototype.initViewsMediator = function () {
+        var login = new Login();
+        this.facade().registerMediator(new LoginMediator(login));
+        this.loginView = login;
+        var leve1 = new Level1();
+        this.facade().registerMediator(new LevelMediator(leve1));
     };
     ApplicationMediator.NAME = 'ApplicationMediator';
     return ApplicationMediator;

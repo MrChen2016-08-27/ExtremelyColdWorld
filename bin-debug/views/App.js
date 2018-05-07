@@ -17,20 +17,12 @@ var App = (function (_super) {
         return _this;
     }
     App.prototype.onAddToStage = function () {
-        this.createGameScene();
-    };
-    App.prototype.createGameScene = function () {
-        var button = new eui.Button();
-        button.label = "start!";
-        button.horizontalCenter = 0;
-        button.verticalCenter = 0;
-        this.addChild(button);
+        this.addChild(ViewsManager.getInstance());
         var event = new egret.Event(App.CREATE_COMPLETE);
         this.dispatchEvent(event);
     };
     App.prototype.end = function () {
         this.removeEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        this.removeChildren();
     };
     App.CREATE_COMPLETE = 'create_complete';
     return App;
