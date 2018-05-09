@@ -31,6 +31,22 @@ class Level1 extends egret.DisplayObjectContainer implements Level{
         // 渲染
         this.tmxTileMap.render();
         this.addChild(this.tmxTileMap);
+        const group: tiled.TMXObjectGroup = this.getGroupByName('roles');
+        console.log(group.getObjectById(4));
+        setTimeout(() => {
+            console.log(group.getObjectById(4));
+        }, 500);
+    }
+    public getGroupByName(name): tiled.TMXObjectGroup{
+        const groups: Array<tiled.TMXObjectGroup> = this.tmxTileMap.getObjects();
+        let group: tiled.TMXObjectGroup;
+        groups.some((group2) => {
+            if (group2.name === name) {
+                group = group2;
+                return true;
+            }
+        });
+        return group;
     }
     public end(): void{
         this.url = null;

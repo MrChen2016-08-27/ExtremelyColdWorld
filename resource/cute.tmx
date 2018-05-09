@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="10" height="19" tilewidth="101" tileheight="171" infinite="0" backgroundcolor="#ff6600" nextobjectid="1">
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="10" height="19" tilewidth="101" tileheight="171" infinite="0" backgroundcolor="#ff6600" nextobjectid="6">
  <properties>
   <property name="TilesetFrom" value="www.lostgarden.com"/>
   <property name="levelName" value="Introduction"/>
@@ -99,27 +99,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer name="interaction" width="10" height="19">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,
-2,9,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,9,0,0,0,0,0,0,0,0,
-1,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
+ <objectgroup name="roles" offsetx="0" offsety="-2">
+  <object id="4" name="PrimaryRole" gid="1" x="3.0303" y="3252.33" width="101" height="171"/>
+ </objectgroup>
 </map>

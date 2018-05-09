@@ -32,12 +32,26 @@ var Level1 = (function (_super) {
         // 初始化地图
         this.tmxTileMap = new tiled.TMXTilemap(1010, 3249, data, this.url);
         // 显示位置从底部开始
-        console.log(this.tmxTileMap.height, '@');
-        console.log(this.stage.stageHeight, '?');
         this.tmxTileMap.y = -(this.tmxTileMap.height - this.stage.stageHeight);
         // 渲染
         this.tmxTileMap.render();
         this.addChild(this.tmxTileMap);
+        var group = this.getGroupByName('roles');
+        console.log(group.getObjectById(4));
+        setTimeout(function () {
+            console.log(group.getObjectById(4));
+        }, 500);
+    };
+    Level1.prototype.getGroupByName = function (name) {
+        var groups = this.tmxTileMap.getObjects();
+        var group;
+        groups.some(function (group2) {
+            if (group2.name === name) {
+                group = group2;
+                return true;
+            }
+        });
+        return group;
     };
     Level1.prototype.end = function () {
         this.url = null;
