@@ -16,11 +16,10 @@ class ViewsManager extends egret.DisplayObjectContainer{
         return ViewsManager.instance;
     }
 
-    // 切换到一个新容器
+    // 切换到一个新容器, 并清除旧容器与回收资源
     public push(view):void {
         this.oldView = this.newView;
         this.newView = view;
-        console.log(this.oldView, 'oldView');
         if (this.oldView) {
             this.oldView.end();
         }

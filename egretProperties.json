@@ -35,7 +35,7 @@
     },
     {
       "name": "tiled",
-      "path": "../libsrc"
+      "path": "../egret-game-library-master/tiled/libsrc"
     }
   ]
 }
