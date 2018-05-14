@@ -10,8 +10,8 @@
 		"libs/modules/tiled/tiled.js"
 	],
 	"game": [
-		"bin-debug/puremvc/controller/user/LoginCommand.js",
-		"bin-debug/AssetAdapter.js",
+		"bin-debug/views/gameLevels/LevelParent.js",
+		"bin-debug/puremvc/model/user/UserModel.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
@@ -22,17 +22,19 @@
 		"bin-debug/puremvc/controller/BootViews.js",
 		"bin-debug/puremvc/controller/StartCommand.js",
 		"bin-debug/puremvc/controller/app/AppCommand.js",
-		"bin-debug/LoadingUI.js",
-		"bin-debug/puremvc/model/user/UserModel.js",
+		"bin-debug/puremvc/controller/user/LoginCommand.js",
+		"bin-debug/AssetAdapter.js",
 		"bin-debug/puremvc/model/user/UserProxy.js",
 		"bin-debug/puremvc/view/app/ApplicationMediator.js",
 		"bin-debug/puremvc/view/gameLevels/LevelMediator.js",
 		"bin-debug/puremvc/view/login/LoginMediator.js",
 		"bin-debug/tool/Http.js",
+		"bin-debug/tool/VirtualJoystick.js",
 		"bin-debug/views/App.js",
 		"bin-debug/views/InterfaceList.js",
 		"bin-debug/views/Login.js",
 		"bin-debug/views/ViewsManager.js",
-		"bin-debug/views/gameLevels/Level1.js"
+		"bin-debug/views/gameLevels/Level1.js",
+		"bin-debug/LoadingUI.js"
 	]
 }
