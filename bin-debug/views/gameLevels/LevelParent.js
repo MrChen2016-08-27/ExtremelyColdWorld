@@ -47,6 +47,10 @@ var LevelParent = (function (_super) {
     __extends(LevelParent, _super);
     function LevelParent() {
         var _this = _super.call(this) || this;
+        /** 速度 */
+        _this.speed = 2;
+        _this.speedX = 0;
+        _this.speedY = 0;
         _this.once(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
         return _this;
     }
@@ -124,7 +128,21 @@ var LevelParent = (function (_super) {
     LevelParent.prototype.addVirtualJoystick = function () {
         var virtualJoystick = new VirtualJoystick(100, 100);
         this.addChild(virtualJoystick);
-        console.log(virtualJoystick);
+        virtualJoystick.addEventListener(VirtualJoystick.ActionStart, this.onStart, this);
+        virtualJoystick.addEventListener(VirtualJoystick.ActionEnd, this.onEnd, this);
+        return virtualJoystick;
+    };
+    LevelParent.prototype.onStart = function () {
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    };
+    LevelParent.prototype.onEnd = function () {
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    };
+    // 每帧更新
+    LevelParent.prototype.onEnterFrame = function () {
+        this.primaryRole.x += this.speedX;
+        this.primaryRole.y += this.speedY;
+        console.log(this.speedX);
     };
     return LevelParent;
 }(egret.DisplayObjectContainer));

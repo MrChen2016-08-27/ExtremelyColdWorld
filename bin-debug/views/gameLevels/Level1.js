@@ -56,16 +56,24 @@ var Level1 = (function (_super) {
      */
     Level1.prototype.onAddToStage = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var joystick;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, _super.prototype.onAddToStage.call(this)];
                     case 1:
                         _a.sent();
-                        this.addVirtualJoystick();
+                        joystick = this.addVirtualJoystick();
+                        joystick.addEventListener(VirtualJoystick.ActionMove, this.action_move, this);
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    Level1.prototype.action_move = function (event) {
+        var angle = event.data;
+        this.speedX = Math.cos(angle) * this.speed;
+        this.speedY = Math.sin(angle) * this.speed;
+        console.log('action_move...' + event.data);
     };
     return Level1;
 }(LevelParent));

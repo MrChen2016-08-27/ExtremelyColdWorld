@@ -2,6 +2,9 @@
  * 虚拟摇杆
  */
 class VirtualJoystick extends eui.Component{
+    public static readonly ActionStart:string = 'action_start';
+    public static readonly ActionMove:string = 'action_move';
+    public static readonly ActionEnd:string = 'action_end';
     // 圆环
     private circle:eui.Rect;
     // 小球
@@ -70,14 +73,20 @@ class VirtualJoystick extends eui.Component{
     }
 
     private startEvent() {
-        this.circle.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startAction, this);
+        this.circle.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startAction, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.moveAction, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.endAction, this);
     }
 
     private startAction(event:egret.TouchEvent) {
         this.touchId = event.touchPointID;
+        const eve = new egret.Event(VirtualJoystick.ActionStart);
+        this.dispatchEvent(eve);
     }
-
+    public endAction() {
+       const eve = new egret.Event(VirtualJoystick.ActionEnd);
+        this.dispatchEvent(eve); 
+    }
     private moveAction(event:egret.TouchEvent) {
         if (this.touchId !== event.touchPointID) {
             return;
@@ -99,6 +108,7 @@ class VirtualJoystick extends eui.Component{
             this.ball.x = Math.cos(angle) * (this.circleRadius - this.ballRadius);
             this.ball.y = Math.sin(angle) * (this.circleRadius - this.ballRadius);
         }
-
+        this.dispatchEventWith(VirtualJoystick.ActionMove, false, angle);
+                            
     }
 }

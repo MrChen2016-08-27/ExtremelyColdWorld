@@ -9,6 +9,11 @@ class LevelParent extends egret.DisplayObjectContainer implements Level{
     public primaryRole: tiled.TMXObject;
     /* 主角id */
     public primaryRoleId: number;
+    /** 速度 */
+    public speed:number = 2;
+    public speedX:number = 0;
+    public speedY:number = 0;
+
     constructor() {
         super();
         this.once(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
@@ -63,12 +68,27 @@ class LevelParent extends egret.DisplayObjectContainer implements Level{
         this.url = null;
         this.request = null;
         this.tmxTileMap.destory();
+
         this.removeChildren();
     }
     // 添加虚拟游戏杆
     public addVirtualJoystick() {
         const virtualJoystick = new VirtualJoystick(100, 100);
         this.addChild(virtualJoystick);
-        console.log(virtualJoystick);
+        virtualJoystick.addEventListener(VirtualJoystick.ActionStart, this.onStart, this);
+        virtualJoystick.addEventListener(VirtualJoystick.ActionEnd, this.onEnd, this);
+        return virtualJoystick;
+    }
+    public onStart() {
+        this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    }
+    public onEnd() {
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+    }
+    // 每帧更新
+    private onEnterFrame() {
+        this.primaryRole.x += this.speedX;
+        this.primaryRole.y += this.speedY;
+        console.log(this.speedX);
     }
 }

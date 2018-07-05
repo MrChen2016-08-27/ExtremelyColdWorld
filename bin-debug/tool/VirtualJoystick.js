@@ -68,11 +68,18 @@ var VirtualJoystick = (function (_super) {
         this.addChild(this.ball);
     };
     VirtualJoystick.prototype.startEvent = function () {
-        this.circle.addEventListener(egret.TouchEvent.TOUCH_TAP, this.startAction, this);
+        this.circle.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.startAction, this);
         this.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.moveAction, this);
+        this.stage.addEventListener(egret.TouchEvent.TOUCH_END, this.endAction, this);
     };
     VirtualJoystick.prototype.startAction = function (event) {
         this.touchId = event.touchPointID;
+        var eve = new egret.Event(VirtualJoystick.ActionStart);
+        this.dispatchEvent(eve);
+    };
+    VirtualJoystick.prototype.endAction = function () {
+        var eve = new egret.Event(VirtualJoystick.ActionEnd);
+        this.dispatchEvent(eve);
     };
     VirtualJoystick.prototype.moveAction = function (event) {
         if (this.touchId !== event.touchPointID) {
@@ -96,7 +103,11 @@ var VirtualJoystick = (function (_super) {
             this.ball.x = Math.cos(angle) * (this.circleRadius - this.ballRadius);
             this.ball.y = Math.sin(angle) * (this.circleRadius - this.ballRadius);
         }
+        this.dispatchEventWith(VirtualJoystick.ActionMove, false, angle);
     };
+    VirtualJoystick.ActionStart = 'action_start';
+    VirtualJoystick.ActionMove = 'action_move';
+    VirtualJoystick.ActionEnd = 'action_end';
     return VirtualJoystick;
 }(eui.Component));
 __reflect(VirtualJoystick.prototype, "VirtualJoystick");
